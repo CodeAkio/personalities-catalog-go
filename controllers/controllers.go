@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/CodeAkio/personalities-catalog-go/database"
 	"github.com/CodeAkio/personalities-catalog-go/models"
 	"github.com/gorilla/mux"
 )
@@ -15,7 +16,10 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func AllPersonalities(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(models.Personalities)
+	var p []models.Personality
+	database.DB.Find(&p)
+
+	json.NewEncoder(w).Encode(p)
 }
 
 func GetPersonality(w http.ResponseWriter, r *http.Request) {
