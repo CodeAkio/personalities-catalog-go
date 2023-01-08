@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/CodeAkio/personalities-catalog-go/database"
 	"github.com/CodeAkio/personalities-catalog-go/models"
@@ -26,10 +25,9 @@ func GetPersonality(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	id := vars["id"]
+	var personality models.Personality
 
-	for _, personality := range models.Personalities {
-		if strconv.Itoa(personality.Id) == id {
-			json.NewEncoder(w).Encode(personality)
-		}
-	}
+	database.DB.First(&personality, id)
+
+	json.NewEncoder(w).Encode(personality)
 }
