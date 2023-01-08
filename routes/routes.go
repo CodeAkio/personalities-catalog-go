@@ -5,11 +5,14 @@ import (
 	"net/http"
 
 	"github.com/CodeAkio/personalities-catalog-go/controllers"
+	"github.com/CodeAkio/personalities-catalog-go/middlewares"
 	"github.com/gorilla/mux"
 )
 
 func HandleRequest() {
 	r := mux.NewRouter()
+
+	r.Use(middlewares.ContentTypeMiddleware)
 
 	r.HandleFunc("/", controllers.Home).Methods("Get")
 	r.HandleFunc("/api/personalities", controllers.AllPersonalities).Methods("Get")
