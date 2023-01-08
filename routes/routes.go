@@ -6,6 +6,7 @@ import (
 
 	"github.com/CodeAkio/personalities-catalog-go/controllers"
 	"github.com/CodeAkio/personalities-catalog-go/middlewares"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -21,5 +22,5 @@ func HandleRequest() {
 	r.HandleFunc("/api/personalities/{id}", controllers.UpdatePersonality).Methods("Put")
 	r.HandleFunc("/api/personalities/{id}", controllers.DeletePersonality).Methods("Delete")
 
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
