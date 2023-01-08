@@ -15,5 +15,3 @@ func HandleRequest() {
 	r.HandleFunc("/api/personalities/{id}", controllers.GetPersonality).Methods("Get")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
-
-// personalities_catalog
